@@ -12,6 +12,7 @@ export class Especialistas extends Component {
         modal: false,
         tipoModal: '',
         modalBorrar:false,
+        modalError: false,
         form: {
             id: '',
             nombre:'',
@@ -37,7 +38,13 @@ export class Especialistas extends Component {
                 this.listadoEspecialistas();
             }
         ).catch(error => {
-            console.log(error.message)
+            if(error.response.status===400){
+
+                this.setState({modalBorrar:false})
+                this.setState({modalError:true})
+
+            } else{console.log(error.message)}
+            
         })
     }
 
@@ -311,7 +318,7 @@ export class Especialistas extends Component {
                         </Modal>
 
 
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="md">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Especialista       
 
@@ -329,6 +336,44 @@ export class Especialistas extends Component {
 
 
 </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Modal isOpen={this.state.modalError} size="md">
+                            <ModalHeader toggle={()=>(this.setState({modalError:false}))}>                          
+                            Error al eliminar Especialista       
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">No es posible eliminar al especialista {form.nombre} {form.apellido}. </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                          
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalError:false})}}>ACEPTAR</button>
+                            </ModalFooter>
+
+
+</Modal>
+
+
+
+
+
+
+
 
 
 

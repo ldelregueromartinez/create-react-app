@@ -12,6 +12,7 @@ export class HistoriasClinicas extends Component {
         modal: false,
         tipoModal: '',
         modalBorrar:false,
+        modalError: false,
         form: {
             id: '',
             pacienteId:'',
@@ -59,7 +60,10 @@ export class HistoriasClinicas extends Component {
                 this.listadoHistoriasClinicas();
             }
         ).catch(error => {
-            console.log(error.message)
+            if(error.response.status===400){
+                this.setState({modalBorrar:false})
+                this.setState({modalError:true})
+            } else{console.log(error.message)}
         })
     }
 
@@ -208,7 +212,7 @@ export class HistoriasClinicas extends Component {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                         </Modal>
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="md">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Historia Clínica       
 
@@ -227,6 +231,27 @@ export class HistoriasClinicas extends Component {
 
 </Modal>
 
+
+
+
+<Modal isOpen={this.state.modalError} size="md">
+                            <ModalHeader toggle={()=>(this.setState({modalError:false}))}>                          
+                           Error al eliminar Historia Clínica    
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">No es posible eliminar la Historia Clínica del paciente  {form.pacienteId}. </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                          
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalError:false})}}>ACEPTAR</button>
+                            </ModalFooter>
+
+
+</Modal>
 
 
                     </div>

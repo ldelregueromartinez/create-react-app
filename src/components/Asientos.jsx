@@ -11,6 +11,7 @@ export class Asientos extends Component {
         data: [],
         modal: false,
         tipoModal: '',
+        modalError: false,
         modalBorrar:false,
         form: {
             id: '',
@@ -65,7 +66,10 @@ export class Asientos extends Component {
                 this.listadoAsientos();
             }
         ).catch(error => {
-            console.log(error.message)
+            if(error.response.status===400){
+                this.setState({modalBorrar:false})
+                this.setState({modalError:true})
+            } else{console.log(error.message)}
         })
     }
 
@@ -257,7 +261,7 @@ export class Asientos extends Component {
                         </Modal>
 
 
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="md">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Asiento Clínico    
 
@@ -275,6 +279,34 @@ export class Asientos extends Component {
 
 
 </Modal>
+
+
+
+
+<Modal isOpen={this.state.modalError} size="md">
+                            <ModalHeader toggle={()=>(this.setState({modalError:false}))}>                          
+                           Error al eliminar Asiento Clínico   
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">No es posible eliminar el Asiento Clínico del paciente {form.pacienteId}  con fecha {form.fecha}. </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                          
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalError:false})}}>ACEPTAR</button>
+                            </ModalFooter>
+
+
+</Modal>
+
+
+
+
+
+
 
 
 

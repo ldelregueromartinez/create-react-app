@@ -12,6 +12,7 @@ export class Consultorios extends Component {
         data: [],
         tipoModal: '',
         modalBorrar:false,
+        modalError: false,
         modal: false,
         form: {
             id: '',
@@ -31,7 +32,10 @@ export class Consultorios extends Component {
                 this.listadoConsultorios();
             }
         ).catch(error => {
-            console.log(error.message)
+            if(error.response.status===400){
+                this.setState({modalBorrar:false})
+                this.setState({modalError:true})
+            } else{console.log(error.message)}
         })
     }
 
@@ -230,7 +234,7 @@ seleccionarConsultorio = (consultorio)=> {
 
 
 
-                    <Modal isOpen={this.state.modalBorrar} size="lg">
+                    <Modal isOpen={this.state.modalBorrar} size="md">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Consultorio       
 
@@ -251,7 +255,24 @@ seleccionarConsultorio = (consultorio)=> {
 
 
 
+<Modal isOpen={this.state.modalError} size="md">
+                            <ModalHeader toggle={()=>(this.setState({modalError:false}))}>                          
+                            Error al eliminar Consultorio      
 
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">No es posible eliminar el consultorio N° {form.numero}  del piso {form.piso}. </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                          
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalError:false})}}>ACEPTAR</button>
+                            </ModalFooter>
+
+
+</Modal>
 
 
 
