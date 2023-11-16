@@ -64,7 +64,17 @@ export class Pacientes extends Component {
 
 
 
+    borrarPaciente = async ()=> {
 
+        await axios.delete(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.setState({modalBorrar:false});
+                this.listadoPacientes();
+            }
+        ).catch(error => {
+            console.log(error.message)
+        })
+    }
 
 
 
@@ -272,7 +282,7 @@ export class Pacientes extends Component {
                         </ModalFooter>
                         </Modal>
 
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="sm">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Paciente       
 
@@ -284,8 +294,8 @@ export class Pacientes extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
-                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            <button className='btn btn-danger ms float-end"' onClick={()=>{this.borrarPaciente()}}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalBorrar:false})}}>NO</button>
                             </ModalFooter>
 
 

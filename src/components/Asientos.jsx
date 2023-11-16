@@ -57,7 +57,17 @@ export class Asientos extends Component {
 
 
 
+    borrarAsiento = async ()=> {
 
+        await axios.delete(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.setState({modalBorrar:false});
+                this.listadoAsientos();
+            }
+        ).catch(error => {
+            console.log(error.message)
+        })
+    }
 
 
 
@@ -247,7 +257,7 @@ export class Asientos extends Component {
                         </Modal>
 
 
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="sm">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Asiento Clínico    
 
@@ -259,8 +269,8 @@ export class Asientos extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
-                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            <button className='btn btn-danger ms float-end"' onClick={()=>{this.borrarAsiento()}}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalBorrar:false})}}>NO</button>
                             </ModalFooter>
 
 

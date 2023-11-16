@@ -29,7 +29,17 @@ export class Especialistas extends Component {
     };
 
 
+    borrarEspecialista = async ()=> {
 
+        await axios.delete(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.setState({modalBorrar:false});
+                this.listadoEspecialistas();
+            }
+        ).catch(error => {
+            console.log(error.message)
+        })
+    }
 
     modificarEspecialistas = ()=> {
 
@@ -301,7 +311,7 @@ export class Especialistas extends Component {
                         </Modal>
 
 
-                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                        <Modal isOpen={this.state.modalBorrar} size="sm">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Especialista       
 
@@ -313,8 +323,8 @@ export class Especialistas extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
-                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            <button className='btn btn-danger ms float-end"' onClick={()=>{this.borrarEspecialista()}}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalBorrar:false})}}>NO</button>
                             </ModalFooter>
 
 

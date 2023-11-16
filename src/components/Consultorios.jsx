@@ -23,6 +23,19 @@ export class Consultorios extends Component {
 
 
 
+    borrarConsultorio = async ()=> {
+
+        await axios.delete(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.setState({modalBorrar:false});
+                this.listadoConsultorios();
+            }
+        ).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+
 modificarConsultorio = async ()=> {
 
  await   axios.put(url + this.state.form.id, this.state.form).then(
@@ -217,7 +230,7 @@ seleccionarConsultorio = (consultorio)=> {
 
 
 
-                    <Modal isOpen={this.state.modalBorrar} size="lg">
+                    <Modal isOpen={this.state.modalBorrar} size="sm">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Consultorio       
 
@@ -229,8 +242,8 @@ seleccionarConsultorio = (consultorio)=> {
                             </ModalBody>
 
                             <ModalFooter>
-                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
-                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            <button className='btn btn-danger ms float-end"' onClick={()=>{this.borrarConsultorio()}}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>{this.setState({modalBorrar:false})}}>NO</button>
                             </ModalFooter>
 
 
