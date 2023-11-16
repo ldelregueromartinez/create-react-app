@@ -21,9 +21,7 @@ function App() {
 
     <div className="container">
    
-      <div >
-        <h1 className="h1 text-center my-4">Rutas en React</h1>
-      </div>
+
 
       <Routes>
       <Route path="/consultorios" Component={Consultorios}></Route>
