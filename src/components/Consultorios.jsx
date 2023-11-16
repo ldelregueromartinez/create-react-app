@@ -3,7 +3,7 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, ModalBody, ModalHeader, ModalFooter} from 'reactstrap';
 
-const url = 'https://backend-dev-ateq.4.us-1.fl0.io/consultorios';
+const url = 'https://backend-dev-ateq.4.us-1.fl0.io/consultorios/';
 
 
 export class Consultorios extends Component {
@@ -132,7 +132,6 @@ seleccionarConsultorio = (consultorio)=> {
                 <div className="w-50 m-auto">
                     <h2 className="h2 text-center mb-4">
                         Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
-                                            
                     </h2>
 
                     <hr />
@@ -161,6 +160,7 @@ seleccionarConsultorio = (consultorio)=> {
                                         </tr>
                                     )
                                 })}
+                                
 
                             </tbody>
                         </table>
@@ -201,8 +201,7 @@ seleccionarConsultorio = (consultorio)=> {
                         </ModalBody>
 
                         <ModalFooter>
-                            {this.state.tipoModal==='insertar'?
-                            
+                            {this.state.tipoModal==='insertar'?                            
                             <button className='btn btn-success ms float-end"' onClick={this.altaConsultorio}>CREAR</button>
                             :
                             <button className='btn btn-success ms float-end"' onClick={this.modificarConsultorio}>ACTUALIZAR</button>
