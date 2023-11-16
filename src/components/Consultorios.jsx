@@ -10,12 +10,59 @@ export class Consultorios extends Component {
 
     state = {
         data: [],
+        tipoModal: '',
         modal: false,
         form: {
+            id: '',
             piso: '',
             numero: ''
         }
     };
+
+
+
+
+modificarConsultorio = ()=> {
+
+    axios.put(url + this.state.form.id, this.state.form).then(
+        response=>{
+            this.show();
+            this.listadoConsultorios();
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
+seleccionarConsultorio = (consultorios)=> {
+    this.setState({
+        tipoModal:'actualizar',
+        form:{
+            id: consultorios.id,
+            piso: consultorios.piso,
+            numero: consultorios.numero 
+        }
+
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
     //Funcion para mostrar modal
 
@@ -35,10 +82,7 @@ export class Consultorios extends Component {
             console.log(error.message)
         })
     };
-    //Montar la funcion listadoConsultorios
-    componentDidMount() {
-        this.listadoConsultorios();
-    };
+
 
 
 
@@ -71,15 +115,23 @@ export class Consultorios extends Component {
 
 
 
+    //Montar la funcion listadoConsultorios
+    componentDidMount() {
+        this.listadoConsultorios();
+    };
+
+
+
 
     render() {
+        const {form}=this.state;
         return (
             (
 
 
                 <div className="w-50 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={this.show} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVO</button>
                                             
                     </h2>
 
@@ -104,7 +156,7 @@ export class Consultorios extends Component {
                                             <td style={{ fontSize: 11 }}>{consultorio.piso}</td>
                                             <td style={{ fontSize: 11 }}>{consultorio.numero}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorios); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
@@ -115,7 +167,13 @@ export class Consultorios extends Component {
 
                         <Modal isOpen={this.state.modal} size="lg">
                             <ModalHeader toggle={this.show}>
-                             Creación de consultorio          
+                           
+                           
+                             Formulario de consultorio          
+
+
+
+
                             </ModalHeader>
 
                             <ModalBody >
@@ -126,12 +184,12 @@ export class Consultorios extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Piso:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Piso' name='piso' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Piso' name='piso' onChange={this.handleChange}  value={form?form.piso:""}  />
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Número:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el numero' name='numero' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el numero' name='numero' onChange={this.handleChange}  value={form?form.numero:""} />
                                                 </div>
                                             </div>                                         
 
@@ -143,7 +201,13 @@ export class Consultorios extends Component {
                         </ModalBody>
 
                         <ModalFooter>
+                            {this.state.tipoModal==='insertar'?
+                            
                             <button className='btn btn-success ms float-end"' onClick={this.altaConsultorio}>CREAR</button>
+                            :
+                            <button className='btn btn-success ms float-end"' onClick={this.modificarConsultorio}>ACTUALIZAR</button>
+                        }
+                                 
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                     </Modal>

@@ -10,7 +10,9 @@ export class Especialistas extends Component {
     state = {
         data: [],
         modal: false,
+        tipoModal: '',
         form: {
+            id: '',
             nombre:'',
             apellido:'',
             direccion:'',
@@ -24,6 +26,56 @@ export class Especialistas extends Component {
             consultorioId:''
         }
     };
+
+
+
+
+    modificarEspecialistas = ()=> {
+
+        axios.put(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.show();
+                this.listadoEspecialistas();
+            }
+        )
+    }
+
+
+    seleccionarEspecialista = (especialistas)=> {
+        this.setState({
+            tipoModal:'actualizar',
+            form:{
+                id: especialistas.id,
+                nombre:especialistas.nombre,
+                apellido:especialistas.apellido,
+                direccion:especialistas.direccion,
+                telefono:especialistas.telefono,
+                dni:especialistas.dni,
+                fecha_nac:especialistas.fecha_nac,
+                matricula:especialistas.matricula,
+                especialidad:especialistas.especialidad,
+                fechaIngreso:especialistas.fechaIngreso,
+                fechaEgreso:especialistas.fechaEgreso,
+                consultorioId:especialistas.consultorioId
+
+
+            }
+    
+        });
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Funcion para mostrar modal
 
@@ -81,13 +133,14 @@ export class Especialistas extends Component {
 
 
     render() {
+        const {form}=this.state;
         return (
             (
 
 
                 <div className="w-100 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Especialistas <button className='btn btn-success ms float-end' onClick={this.show} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Especialistas <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVO</button>
 
                     </h2>
 
@@ -129,7 +182,7 @@ export class Especialistas extends Component {
                                             <td style={{ fontSize: 11 }}>{especialista.fechaEgreso}</td>
                                             <td style={{ fontSize: 11 }}>{especialista.consultorioId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarEspecialista(especialistas); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
@@ -140,7 +193,7 @@ export class Especialistas extends Component {
 
                         <Modal isOpen={this.state.modal} size="lg">
                             <ModalHeader toggle={this.show}>
-                                Creación de especialista
+                            Formulario de especialista
                             </ModalHeader>
 
                             <ModalBody >
@@ -151,12 +204,12 @@ export class Especialistas extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Nombre:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Nombre' name='nombre' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Nombre' name='nombre' onChange={this.handleChange} value={form?form.nombre:""}/>
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Apellido:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Apellido' name='apellido' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Apellido' name='apellido' onChange={this.handleChange} value={form?form.apellido:""}/>
                                                 </div>
                                             </div>
 
@@ -164,17 +217,17 @@ export class Especialistas extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Dirección:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Direccion' name='direccion' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Direccion' name='direccion' onChange={this.handleChange} value={form?form.direccion:""} />
                                                 </div>
 
                                                 <div className="col-3">
                                                     <label className='text-secondary badge'> DNI:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el DNI' name='dni' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el DNI' name='dni' onChange={this.handleChange} value={form?form.dni:""} />
                                                 </div>
 
                                                 <div className="col-3">
                                                     <label className='text-secondary badge'> Matricula:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Matricula' name='matricula' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Matricula' name='matricula' onChange={this.handleChange} value={form?form.matricula:""}/>
                                                 </div>
 
                                                
@@ -187,11 +240,11 @@ export class Especialistas extends Component {
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Fecha de Nacimiento:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de nacimiento' name='fecha_nac' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de nacimiento con formato aaaa-mm-dd' name='fecha_nac' onChange={this.handleChange} value={form?form.fecha_nac:""} />
                                                 </div>
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Telefono:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Teléfono' name='telefono' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Teléfono' name='telefono' onChange={this.handleChange} value={form?form.telefono:""}/>
                                                 </div>
 
                                             </div>
@@ -201,12 +254,12 @@ export class Especialistas extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Especialidad:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Especialidad' name='especialidad' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Especialidad' name='especialidad' onChange={this.handleChange}value={form?form.especialidad:""} />
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Fecha de Ingreso:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de Ingreso' name='fechaIngreso' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de Ingreso con formato aaaa-mm-dd' name='fechaIngreso' onChange={this.handleChange} value={form?form.fechaIngreso:""}/>
                                                 </div>
                                             </div>
 
@@ -215,12 +268,12 @@ export class Especialistas extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Fecha de Egreso:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de Egreso' name='fechaEgreso' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la fecha de Egreso con formato aaaa-mm-dd' name='fechaEgreso' onChange={this.handleChange} value={form?form.fechaEgreso:""} />
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Consultorio:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el consultorio' name='consultorioId' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el consultorio' name='consultorioId' onChange={this.handleChange} value={form?form.consultorioId:""}/>
                                                 </div>
                                             </div>
 
@@ -233,9 +286,15 @@ export class Especialistas extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                                <button className='btn btn-success ms float-end"' onClick={this.altaEspecialista}>CREAR</button>
-                                <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
-                            </ModalFooter>
+                            {this.state.tipoModal==='insertar'?
+                            
+                            <button className='btn btn-success ms float-end"' onClick={this.altaEspecialista}>CREAR</button>
+                            :
+                            <button className='btn btn-success ms float-end"' onClick={this.modificarEspecialistas}>ACTUALIZAR</button>
+                        }
+                                 
+                            <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
+                        </ModalFooter>
                         </Modal>
 
 

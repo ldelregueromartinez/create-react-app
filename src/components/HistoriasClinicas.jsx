@@ -10,11 +10,55 @@ export class HistoriasClinicas extends Component {
     state = {
         data: [],
         modal: false,
+        tipoModal: '',
         form: {
+            id: '',
             pacienteId:'',
             asientoclinicoId:''
         }
     };
+
+
+
+
+
+
+
+    modificarHistoriasClinicas = ()=> {
+
+        axios.put(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.show();
+                this.listadoHistoriasClinicas();
+            }
+        )
+    }
+
+
+    seleccionarHistoriaClinica = (historiasclinicas)=> {
+        this.setState({
+            tipoModal:'actualizar',
+            form:{
+                id: historiasclinicas.id,
+                pacienteId:historiasclinicas.pacienteId,
+                asientoclinicoId: historiasclinicas.asientoclinicoId
+            }
+    
+        });
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Funcion para mostrar modal
 
@@ -72,12 +116,13 @@ export class HistoriasClinicas extends Component {
 
 
     render() {
+        const {form}=this.state;
         return (
             (
 
                 <div className="w-50 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Historias Clinicas <button className='btn btn-success ms float-end' onClick={this.show} style={{ fontSize: 12 }}>NUEVA</button>
+                        Listado de Historias Clinicas <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVA</button>
 
                     </h2>
 
@@ -101,7 +146,7 @@ export class HistoriasClinicas extends Component {
                                             <td style={{ fontSize: 11 }}>{historiaclinica.pacienteId}</td>
                                             <td style={{ fontSize: 11 }}>{historiaclinica.asientoclinicoId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarHistoriaClinica(historiasclinicas); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
@@ -112,7 +157,7 @@ export class HistoriasClinicas extends Component {
 
                         <Modal isOpen={this.state.modal} size="lg">
                             <ModalHeader toggle={this.show}>
-                                Creación de Historia Clinica
+                            Formulario de Historia Clinica
                             </ModalHeader>
 
                             <ModalBody >
@@ -123,12 +168,12 @@ export class HistoriasClinicas extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Paciente:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Paciente' name='pacienteId' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Paciente' name='pacienteId' onChange={this.handleChange} value={form?form.pacienteId:""} />
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Asiento:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Asiento' name='asientoclinicoId' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Asiento' name='asientoclinicoId' onChange={this.handleChange} value={form?form.asientoclinicoId:""} />
                                                 </div>
                                             </div>
                                            
@@ -140,9 +185,15 @@ export class HistoriasClinicas extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                                <button className='btn btn-success ms float-end"' onClick={this.altaHistoriaClinica}>CREAR</button>
-                                <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
-                            </ModalFooter>
+                            {this.state.tipoModal==='insertar'?
+                            
+                            <button className='btn btn-success ms float-end"' onClick={this.altaHistoriaClinica}>CREAR</button>
+                            :
+                            <button className='btn btn-success ms float-end"' onClick={this.modificarHistoriasClinicas}>ACTUALIZAR</button>
+                        }
+                                 
+                            <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
+                        </ModalFooter>
                         </Modal>
 
 

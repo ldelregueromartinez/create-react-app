@@ -10,7 +10,9 @@ export class Asientos extends Component {
     state = {
         data: [],
         modal: false,
+        tipoModal: '',
         form: {
+            id: '',
             fecha:'',
             antecedentes:'',
             acto_profesional:'',
@@ -20,6 +22,48 @@ export class Asientos extends Component {
 
         }
     };
+
+
+    modificarAsiento = ()=> {
+
+        axios.put(url + this.state.form.id, this.state.form).then(
+            response=>{
+                this.show();
+                this.listadoAsientos();
+            }
+        )
+    }
+
+
+    seleccionarAsiento = (asientos)=> {
+        this.setState({
+            tipoModal:'actualizar',
+            form:{
+                id: asientos.id,
+                fecha:asientos.fecha,
+                antecedentes:asientos.antecedentes,
+                acto_profesional:asientos.acto_profesional,
+                otras_informaciones:asientos.otras_informaciones,
+                pacienteId:asientos.pacienteId,
+                especialistaId:asientos.especialistaId
+            }
+    
+        });
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Funcion para mostrar modal
 
@@ -78,13 +122,14 @@ export class Asientos extends Component {
 
 
     render() {
+        const {form}=this.state;
         return (
             (
 
 
                 <div className="w-100 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Asientos <button className='btn btn-success ms float-end' onClick={this.show} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Asientos <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVO</button>
 
                     </h2>
 
@@ -118,7 +163,7 @@ export class Asientos extends Component {
                                             <td style={{ fontSize: 11 }}>{asiento.especialistaId}</td>
  
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarAsiento(asientos); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
@@ -129,7 +174,7 @@ export class Asientos extends Component {
 
                         <Modal isOpen={this.state.modal} size="lg">
                             <ModalHeader toggle={this.show}>
-                                Creación de asiento Clínico
+                            Formulario de Asiento Clínico
                             </ModalHeader>
 
                             <ModalBody >
@@ -140,12 +185,12 @@ export class Asientos extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Fecha:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Fecha' name='fecha' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese la Fecha con formato aaaa-mm-dd' name='fecha' onChange={this.handleChange}  value={form?form.fecha:""} />
                                                 </div>
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Antecedentes:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese Antecedentes' name='antecedentes' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese Antecedentes' name='antecedentes' onChange={this.handleChange} value={form?form.antecedentes:""}/>
                                                 </div>
                                             </div>
 
@@ -153,17 +198,17 @@ export class Asientos extends Component {
                                             <div className="col-xs-12 col-md-3 input-group input-group-sm">
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Acto Profesional:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Acto Profesional' name='acto_profesional' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Acto Profesional' name='acto_profesional' onChange={this.handleChange} value={form?form.acto_profesional:""} />
                                                 </div>
 
                                                 <div className="col-3">
                                                     <label className='text-secondary badge'> Otras Informaciones:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese otra información relevante' name='otras_informaciones' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese otra información relevante' name='otras_informaciones' onChange={this.handleChange} value={form?form.otras_informaciones:""}/>
                                                 </div>
 
                                                 <div className="col-3">
                                                     <label className='text-secondary badge'> Paciente:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Paciente' name='pacienteId' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Paciente' name='pacienteId' onChange={this.handleChange}  value={form?form.pacienteId:""}/>
                                                 </div>
 
                                                
@@ -176,7 +221,7 @@ export class Asientos extends Component {
 
                                                 <div className="col-6">
                                                     <label className='text-secondary badge'> Especialista:</label>
-                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Especialista' name='especialistaId' onChange={this.handleChange} />
+                                                    <input type="text" className='form-control mb-2' placeholder='Ingrese el Especialista' name='especialistaId' onChange={this.handleChange} value={form?form.especialistaId:""}/>
                                                 </div>
                                             </div>
 
@@ -187,9 +232,15 @@ export class Asientos extends Component {
                             </ModalBody>
 
                             <ModalFooter>
-                                <button className='btn btn-success ms float-end"' onClick={this.altaAsiento}>CREAR</button>
-                                <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
-                            </ModalFooter>
+                            {this.state.tipoModal==='insertar'?
+                            
+                            <button className='btn btn-success ms float-end"' onClick={this.altaAsiento}>CREAR</button>
+                            :
+                            <button className='btn btn-success ms float-end"' onClick={this.modificarAsiento}>ACTUALIZAR</button>
+                        }
+                                 
+                            <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
+                        </ModalFooter>
                         </Modal>
 
 
