@@ -11,6 +11,7 @@ export class Asientos extends Component {
         data: [],
         modal: false,
         tipoModal: '',
+        modalBorrar:false,
         form: {
             id: '',
             fecha:'',
@@ -31,7 +32,9 @@ export class Asientos extends Component {
                 this.show();
                 this.listadoAsientos();
             }
-        )
+        ).catch(error => {
+            console.log(error.message)
+        })
     }
 
 
@@ -164,7 +167,7 @@ export class Asientos extends Component {
  
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
                                                 <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarAsiento(asiento); this.show()}}>EDITAR</button>
-                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
+                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarAsiento(asiento); this.setState({modalBorrar:true})}}>BORRAR</button></div></td>
                                         </tr>
                                     )
                                 })}
@@ -242,6 +245,27 @@ export class Asientos extends Component {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                         </Modal>
+
+
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                            <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
+                            Eliminar Asiento Clínico    
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">¿Realmente deseas eliminar el Asiento Clínico del paciente {form.pacienteId}  con fecha {form.fecha}? </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            </ModalFooter>
+
+
+</Modal>
+
 
 
 

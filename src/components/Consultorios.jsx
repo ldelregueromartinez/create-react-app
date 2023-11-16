@@ -11,6 +11,7 @@ export class Consultorios extends Component {
     state = {
         data: [],
         tipoModal: '',
+        modalBorrar:false,
         modal: false,
         form: {
             id: '',
@@ -22,14 +23,16 @@ export class Consultorios extends Component {
 
 
 
-modificarConsultorio = ()=> {
+modificarConsultorio = async ()=> {
 
-    axios.put(url + this.state.form.id, this.state.form).then(
+ await   axios.put(url + this.state.form.id, this.state.form).then(
         response=>{
             this.show();
             this.listadoConsultorios();
         }
-    )
+    ).catch(error => {
+        console.log(error.message)
+    })
 }
 
 
@@ -156,7 +159,7 @@ seleccionarConsultorio = (consultorio)=> {
                                             <td style={{ fontSize: 11 }}>{consultorio.numero}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
                                                 <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorio); this.show()}}>EDITAR</button>
-                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
+                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorio); this.setState({modalBorrar:true})}}>BORRAR</button></div></td>
                                         </tr>
                                     )
                                 })}
@@ -210,6 +213,34 @@ seleccionarConsultorio = (consultorio)=> {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                     </Modal>
+
+
+
+
+                    <Modal isOpen={this.state.modalBorrar} size="lg">
+                            <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
+                            Eliminar Consultorio       
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">¿Realmente deseas eliminar el consultorio N° {form.numero}  del piso {form.piso}? </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            </ModalFooter>
+
+
+</Modal>
+
+
+
+
+
+
 
 
 

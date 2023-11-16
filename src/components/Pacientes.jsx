@@ -11,6 +11,7 @@ export class Pacientes extends Component {
         data: [],
         modal: false,
         tipoModal: '',
+        modalBorrar:false,
         form: {
             id: '',
             nombre:'',
@@ -55,7 +56,9 @@ export class Pacientes extends Component {
                 this.show();
                 this.listadoPacientes();
             }
-        )
+        ).catch(error => {
+            console.log(error.message)
+        })
     }
 
 
@@ -173,7 +176,7 @@ export class Pacientes extends Component {
                                             <td style={{ fontSize: 11 }}>{paciente.especialistaId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
                                                 <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarPaciente(paciente); this.show()}}>EDITAR</button>
-                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
+                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarPaciente(paciente); this.setState({modalBorrar:true})}}>BORRAR</button></div></td>
                                         </tr>
                                     )
                                 })}
@@ -269,6 +272,24 @@ export class Pacientes extends Component {
                         </ModalFooter>
                         </Modal>
 
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                            <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
+                            Eliminar Paciente       
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">¿Realmente deseas eliminar al paciente {form.nombre} {form.apellido}? </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            </ModalFooter>
+
+
+</Modal>
 
 
                     </div>

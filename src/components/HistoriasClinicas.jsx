@@ -11,6 +11,7 @@ export class HistoriasClinicas extends Component {
         data: [],
         modal: false,
         tipoModal: '',
+        modalBorrar:false,
         form: {
             id: '',
             pacienteId:'',
@@ -31,7 +32,9 @@ export class HistoriasClinicas extends Component {
                 this.show();
                 this.listadoHistoriasClinicas();
             }
-        )
+        ).catch(error => {
+            console.log(error.message)
+        })
     }
 
 
@@ -147,7 +150,7 @@ export class HistoriasClinicas extends Component {
                                             <td style={{ fontSize: 11 }}>{historiaclinica.asientoclinicoId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
                                                 <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarHistoriaClinica(historiaclinica); this.show()}}>EDITAR</button>
-                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
+                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarHistoriaClinica(historiaclinica); this.setState({modalBorrar:true})}} >BORRAR</button></div></td>
                                         </tr>
                                     )
                                 })}
@@ -195,6 +198,24 @@ export class HistoriasClinicas extends Component {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                         </Modal>
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                            <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
+                            Eliminar Historia Clínica       
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">¿Realmente deseas eliminar la Historia Clínica del paciente  {form.pacienteId}? </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            </ModalFooter>
+
+
+</Modal>
 
 
 

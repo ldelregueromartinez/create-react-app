@@ -11,6 +11,7 @@ export class Especialistas extends Component {
         data: [],
         modal: false,
         tipoModal: '',
+        modalBorrar:false,
         form: {
             id: '',
             nombre:'',
@@ -37,7 +38,9 @@ export class Especialistas extends Component {
                 this.show();
                 this.listadoEspecialistas();
             }
-        )
+        ).catch(error => {
+            console.log(error.message)
+        })
     }
 
 
@@ -183,7 +186,7 @@ export class Especialistas extends Component {
                                             <td style={{ fontSize: 11 }}>{especialista.consultorioId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
                                                 <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarEspecialista(especialista); this.show()}}>EDITAR</button>
-                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
+                                                <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarEspecialista(especialista); this.setState({modalBorrar:true})}}>BORRAR</button></div></td>
                                         </tr>
                                     )
                                 })}
@@ -296,6 +299,26 @@ export class Especialistas extends Component {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                         </Modal>
+
+
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
+                            <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
+                            Eliminar Especialista       
+
+                            </ModalHeader>
+
+
+                            <ModalBody>
+                                <h5 className="text-center py-4">¿Realmente deseas eliminar al especialista {form.nombre} {form.apellido}? </h5>
+                            </ModalBody>
+
+                            <ModalFooter>
+                            <button className='btn btn-danger ms float-end"' onClick={this.show}>SI</button>
+                            <button className='btn btn-secondary ms float-end"' onClick={()=>(this.setState({modalBorrar:false}))}>NO</button>
+                            </ModalFooter>
+
+
+</Modal>
 
 
 
