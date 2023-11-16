@@ -230,7 +230,7 @@ seleccionarConsultorio = (consultorio)=> {
 
 
 
-                    <Modal isOpen={this.state.modalBorrar} size="sm">
+                    <Modal isOpen={this.state.modalBorrar} size="lg">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Consultorio       
 

@@ -282,7 +282,7 @@ export class Pacientes extends Component {
                         </ModalFooter>
                         </Modal>
 
-                        <Modal isOpen={this.state.modalBorrar} size="sm">
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Paciente       
 

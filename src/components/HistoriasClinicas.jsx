@@ -208,7 +208,7 @@ export class HistoriasClinicas extends Component {
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
                         </ModalFooter>
                         </Modal>
-                        <Modal isOpen={this.state.modalBorrar} size="sm">
+                        <Modal isOpen={this.state.modalBorrar} size="lg">
                             <ModalHeader toggle={()=>(this.setState({modalBorrar:false}))}>                          
                             Eliminar Historia Clínica       
 
