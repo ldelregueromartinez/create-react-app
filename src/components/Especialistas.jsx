@@ -77,7 +77,7 @@ export class Especialistas extends Component {
         })
     }
 
-    modificarEspecialistas = async ()=> {
+    modificarEspecialista = async ()=> {
 
       await  axios.put(url + this.state.form.id, this.state.form).then(
             response=>{
@@ -88,6 +88,8 @@ export class Especialistas extends Component {
             console.log(error.message)
         })
     }
+
+
 
 
     seleccionarEspecialista = async (especialista)=> {
@@ -339,7 +341,7 @@ export class Especialistas extends Component {
                             
                             <button className='btn btn-success ms float-end"' onClick={this.altaEspecialista}>CREAR</button>
                             :
-                            <button className='btn btn-success ms float-end"' onClick={this.modificarEspecialistas}>ACTUALIZAR</button>
+                            <button className='btn btn-success ms float-end"' onClick={this.modificarEspecialista}>ACTUALIZAR</button>
                         }
                                  
                             <button className='btn btn-secondary ms float-end"' onClick={this.show}>CANCELAR</button>
