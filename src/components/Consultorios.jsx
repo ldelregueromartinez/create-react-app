@@ -3,7 +3,8 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, ModalBody, ModalHeader, ModalFooter} from 'reactstrap';
 
-const url = 'https://backend-dev-ateq.4.us-1.fl0.io/consultorios/';
+const url = 'https://backend-dev-ateq.4.us-1.fl0.io/consultorios';
+
 
 export class Consultorios extends Component {
 
