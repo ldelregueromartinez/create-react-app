@@ -31,7 +31,7 @@ export class Pacientes extends Component {
         this.setState({
             tipoModal:'actualizar',
             form:{
-                id: paciente.id,
+            id: paciente.id,
             nombre:paciente.nombre,
             apellido:paciente.apellido,
             direccion:paciente.direccion,
@@ -134,7 +134,7 @@ export class Pacientes extends Component {
 
                 <div className="w-100 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Pacientes <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Pacientes <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
 
                     </h2>
 

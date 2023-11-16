@@ -131,7 +131,7 @@ seleccionarConsultorio = (consultorio)=> {
 
                 <div className="w-50 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>(this.setState({tipoModal:'insertar'}),this.show())} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
                                             
                     </h2>
 
@@ -156,7 +156,7 @@ seleccionarConsultorio = (consultorio)=> {
                                             <td style={{ fontSize: 11 }}>{consultorio.piso}</td>
                                             <td style={{ fontSize: 11 }}>{consultorio.numero}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorio); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorio), this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
