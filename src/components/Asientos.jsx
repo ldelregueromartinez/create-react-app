@@ -26,6 +26,26 @@ export class Asientos extends Component {
     };
 
 
+    limpiarForm = async ()=> {
+        this.setState({
+            form: {
+                id: '',
+                fecha:'',
+                antecedentes:'',
+                acto_profesional:'',
+                otras_informaciones:'',
+                pacienteId:'',
+                especialistaId:''
+            }
+        })
+
+    };
+
+
+
+
+
+
     modificarAsiento = ()=> {
 
         axios.put(url + this.state.form.id, this.state.form).then(
@@ -146,7 +166,7 @@ export class Asientos extends Component {
 
                 <div className="w-100 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Asientos <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Asientos <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.limpiarForm();  this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
 
                     </h2>
 

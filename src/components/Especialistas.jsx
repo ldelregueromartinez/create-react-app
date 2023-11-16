@@ -30,6 +30,35 @@ export class Especialistas extends Component {
     };
 
 
+    limpiarForm = async ()=> {
+        this.setState({
+            form: {
+                id: '',
+                nombre:'',
+                apellido:'',
+                direccion:'',
+                telefono:'',
+                dni:'',
+                fecha_nac:'',
+                matricula:'',
+                especialidad:'',
+                fechaIngreso:'',
+                fechaEgreso:'',
+                consultorioId:''
+            }
+        })
+
+    };
+
+
+
+
+
+
+
+
+
+
     borrarEspecialista = async ()=> {
 
         await axios.delete(url + this.state.form.id, this.state.form).then(
@@ -160,7 +189,7 @@ export class Especialistas extends Component {
 
                 <div className="w-100 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Especialistas <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Especialistas <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.limpiarForm();  this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
 
                     </h2>
 

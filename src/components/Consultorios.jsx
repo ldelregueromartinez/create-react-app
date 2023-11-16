@@ -24,6 +24,23 @@ export class Consultorios extends Component {
 
 
 
+    limpiarForm = async ()=> {
+        this.setState({
+            form: {
+                id: '',
+                piso: '',
+                numero: ''
+            }
+        })
+
+    };
+
+
+
+
+
+
+
     borrarConsultorio = async ()=> {
 
         await axios.delete(url + this.state.form.id, this.state.form).then(
@@ -151,7 +168,7 @@ seleccionarConsultorio = (consultorio)=> {
 
                 <div className="w-50 m-auto">
                     <h2 className="h2 text-center mb-4">
-                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
+                        Listado de Consultorios <button className='btn btn-success ms float-end' onClick={()=>{this.setState({tipoModal:'insertar'}); this.limpiarForm(); this.show()}} style={{ fontSize: 12 }}>NUEVO</button>
                     </h2>
 
                     <hr />
