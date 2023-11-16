@@ -31,7 +31,7 @@ export class Especialistas extends Component {
 
 
     limpiarForm = async ()=> {
-        this.setState({
+      await  this.setState({
             form: {
                 id: '',
                 nombre:'',
@@ -77,9 +77,9 @@ export class Especialistas extends Component {
         })
     }
 
-    modificarEspecialistas = ()=> {
+    modificarEspecialistas = async ()=> {
 
-        axios.put(url + this.state.form.id, this.state.form).then(
+      await  axios.put(url + this.state.form.id, this.state.form).then(
             response=>{
                 this.show();
                 this.listadoEspecialistas();
@@ -90,8 +90,8 @@ export class Especialistas extends Component {
     }
 
 
-    seleccionarEspecialista = (especialista)=> {
-        this.setState({
+    seleccionarEspecialista = async (especialista)=> {
+      await  this.setState({
             tipoModal:'actualizar',
             form:{
                 id: especialista.id,
@@ -136,8 +136,8 @@ export class Especialistas extends Component {
 
 
     //Funcion listadoEspecialistas
-    listadoEspecialistas = () => {
-        axios.get(url).then(response => {
+    listadoEspecialistas =async () => {
+     await   axios.get(url).then(response => {
             this.setState({ data: response.data });
 
         }).catch(error => {

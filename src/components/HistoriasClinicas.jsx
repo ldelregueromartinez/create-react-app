@@ -24,7 +24,7 @@ export class HistoriasClinicas extends Component {
 
 
     limpiarForm = async ()=> {
-        this.setState({
+      await  this.setState({
             form: {
                 id: '',
                 pacienteId:'',
@@ -35,9 +35,9 @@ export class HistoriasClinicas extends Component {
     };
 
 
-    modificarHistoriasClinicas = ()=> {
+    modificarHistoriasClinicas = async ()=> {
 
-        axios.put(url + this.state.form.id, this.state.form).then(
+     await   axios.put(url + this.state.form.id, this.state.form).then(
             response=>{
                 this.show();
                 this.listadoHistoriasClinicas();
@@ -48,8 +48,8 @@ export class HistoriasClinicas extends Component {
     }
 
 
-    seleccionarHistoriaClinica = (historiaclinica)=> {
-        this.setState({
+    seleccionarHistoriaClinica = async (historiaclinica)=> {
+      await  this.setState({
             tipoModal:'actualizar',
             form:{
                 id: historiaclinica.id,
@@ -96,8 +96,8 @@ export class HistoriasClinicas extends Component {
 
 
     //Funcion listadoHistoriasClinicas
-    listadoHistoriasClinicas = () => {
-        axios.get(url).then(response => {
+    listadoHistoriasClinicas = async () => {
+     await   axios.get(url).then(response => {
             this.setState({ data: response.data });
 
         }).catch(error => {

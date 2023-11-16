@@ -27,7 +27,7 @@ export class Asientos extends Component {
 
 
     limpiarForm = async ()=> {
-        this.setState({
+     await   this.setState({
             form: {
                 id: '',
                 fecha:'',
@@ -46,9 +46,9 @@ export class Asientos extends Component {
 
 
 
-    modificarAsiento = ()=> {
+    modificarAsiento = async ()=> {
 
-        axios.put(url + this.state.form.id, this.state.form).then(
+    await    axios.put(url + this.state.form.id, this.state.form).then(
             response=>{
                 this.show();
                 this.listadoAsientos();
@@ -59,8 +59,8 @@ export class Asientos extends Component {
     }
 
 
-    seleccionarAsiento = (asiento)=> {
-        this.setState({
+    seleccionarAsiento = async (asiento)=> {
+      await  this.setState({
             tipoModal:'actualizar',
             form:{
                 id: asiento.id,
@@ -112,8 +112,8 @@ export class Asientos extends Component {
 
 
     //Funcion listadoAsientos
-    listadoAsientos = () => {
-        axios.get(url).then(response => {
+    listadoAsientos = async () => {
+     await   axios.get(url).then(response => {
             this.setState({ data: response.data });
 
         }).catch(error => {

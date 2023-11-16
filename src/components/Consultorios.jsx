@@ -25,7 +25,7 @@ export class Consultorios extends Component {
 
 
     limpiarForm = async ()=> {
-        this.setState({
+      await  this.setState({
             form: {
                 id: '',
                 piso: '',
@@ -77,8 +77,8 @@ modificarConsultorio = async ()=> {
 
 
 
-seleccionarConsultorio = (consultorio)=> {
-    this.setState({
+seleccionarConsultorio = async (consultorio)=> {
+   await this.setState({
         tipoModal:'actualizar',
         form:{
             id: consultorio.id,
@@ -103,16 +103,16 @@ seleccionarConsultorio = (consultorio)=> {
 
     //Funcion para mostrar modal
 
-    show = () => {
-        this.setState({ modal: !this.state.modal })
+    show = async () => {
+      await  this.setState({ modal: !this.state.modal })
     };
 
 
 
 
     //Funcion listadoConsultorios
-    listadoConsultorios = () => {
-        axios.get(url).then(response => {
+    listadoConsultorios = async () => {
+      await  axios.get(url).then(response => {
             this.setState({ data: response.data });
 
         }).catch(error => {

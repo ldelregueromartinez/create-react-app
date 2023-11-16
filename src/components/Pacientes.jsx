@@ -31,7 +31,7 @@ export class Pacientes extends Component {
 
 
     limpiarForm = async ()=> {
-        this.setState({
+     await   this.setState({
             form: {
                 id: '',
                 nombre:'',
@@ -57,8 +57,8 @@ export class Pacientes extends Component {
 
 
 
-    seleccionarPaciente = (paciente)=> {
-        this.setState({
+    seleccionarPaciente =  async (paciente)=> {
+     await   this.setState({
             tipoModal:'actualizar',
             form:{
             id: paciente.id,
@@ -78,9 +78,9 @@ export class Pacientes extends Component {
     }
 
 
-    modificarPaciente = ()=> {
+    modificarPaciente = async()=> {
 
-        axios.put(url + this.state.form.id, this.state.form).then(
+     await   axios.put(url + this.state.form.id, this.state.form).then(
             response=>{
                 this.show();
                 this.listadoPacientes();
@@ -126,8 +126,8 @@ export class Pacientes extends Component {
 
 
     //Funcion listadoPacientes
-    listadoPacientes = () => {
-        axios.get(url).then(response => {
+    listadoPacientes = async () => {
+     await   axios.get(url).then(response => {
             this.setState({ data: response.data });
 
         }).catch(error => {
