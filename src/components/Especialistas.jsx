@@ -41,22 +41,22 @@ export class Especialistas extends Component {
     }
 
 
-    seleccionarEspecialista = (especialistas)=> {
+    seleccionarEspecialista = (especialista)=> {
         this.setState({
             tipoModal:'actualizar',
             form:{
-                id: especialistas.id,
-                nombre:especialistas.nombre,
-                apellido:especialistas.apellido,
-                direccion:especialistas.direccion,
-                telefono:especialistas.telefono,
-                dni:especialistas.dni,
-                fecha_nac:especialistas.fecha_nac,
-                matricula:especialistas.matricula,
-                especialidad:especialistas.especialidad,
-                fechaIngreso:especialistas.fechaIngreso,
-                fechaEgreso:especialistas.fechaEgreso,
-                consultorioId:especialistas.consultorioId
+                id: especialista.id,
+                nombre:especialista.nombre,
+                apellido:especialista.apellido,
+                direccion:especialista.direccion,
+                telefono:especialista.telefono,
+                dni:especialista.dni,
+                fecha_nac:especialista.fecha_nac,
+                matricula:especialista.matricula,
+                especialidad:especialista.especialidad,
+                fechaIngreso:especialista.fechaIngreso,
+                fechaEgreso:especialista.fechaEgreso,
+                consultorioId:especialista.consultorioId
 
 
             }
@@ -182,7 +182,7 @@ export class Especialistas extends Component {
                                             <td style={{ fontSize: 11 }}>{especialista.fechaEgreso}</td>
                                             <td style={{ fontSize: 11 }}>{especialista.consultorioId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarEspecialista(especialistas); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarEspecialista(especialista); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )

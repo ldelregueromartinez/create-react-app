@@ -35,13 +35,13 @@ export class HistoriasClinicas extends Component {
     }
 
 
-    seleccionarHistoriaClinica = (historiasclinicas)=> {
+    seleccionarHistoriaClinica = (historiasclinica)=> {
         this.setState({
             tipoModal:'actualizar',
             form:{
-                id: historiasclinicas.id,
-                pacienteId:historiasclinicas.pacienteId,
-                asientoclinicoId: historiasclinicas.asientoclinicoId
+                id: historiasclinica.id,
+                pacienteId:historiasclinica.pacienteId,
+                asientoclinicoId: historiasclinica.asientoclinicoId
             }
     
         });
@@ -146,7 +146,7 @@ export class HistoriasClinicas extends Component {
                                             <td style={{ fontSize: 11 }}>{historiaclinica.pacienteId}</td>
                                             <td style={{ fontSize: 11 }}>{historiaclinica.asientoclinicoId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarHistoriaClinica(historiasclinicas); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarHistoriaClinica(historiasclinica); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )

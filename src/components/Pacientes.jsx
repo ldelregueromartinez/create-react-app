@@ -27,20 +27,20 @@ export class Pacientes extends Component {
 
 
 
-    seleccionarPaciente = (pacientes)=> {
+    seleccionarPaciente = (paciente)=> {
         this.setState({
             tipoModal:'actualizar',
             form:{
-                id: pacientes.id,
-            nombre:pacientes.nombre,
-            apellido:pacientes.apellido,
-            direccion:pacientes.direccion,
-            telefono:pacientes.telefono,
-            dni:pacientes.dni,
-            fecha_nac:pacientes.fecha_nac,
-            fechaIngreso:pacientes.fechaIngreso,
-            fechaEgreso:pacientes.fechaEgreso,
-            especialistaId:pacientes.especialistaId
+                id: paciente.id,
+            nombre:paciente.nombre,
+            apellido:paciente.apellido,
+            direccion:paciente.direccion,
+            telefono:paciente.telefono,
+            dni:paciente.dni,
+            fecha_nac:paciente.fecha_nac,
+            fechaIngreso:paciente.fechaIngreso,
+            fechaEgreso:paciente.fechaEgreso,
+            especialistaId:paciente.especialistaId
                }
     
         });
@@ -172,7 +172,7 @@ export class Pacientes extends Component {
                                             <td style={{ fontSize: 11 }}>{paciente.fechaEgreso}</td>
                                             <td style={{ fontSize: 11 }}>{paciente.especialistaId}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarPaciente(pacientes); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarPaciente(paciente); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )

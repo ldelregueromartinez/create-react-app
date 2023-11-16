@@ -35,17 +35,17 @@ export class Asientos extends Component {
     }
 
 
-    seleccionarAsiento = (asientos)=> {
+    seleccionarAsiento = (asiento)=> {
         this.setState({
             tipoModal:'actualizar',
             form:{
-                id: asientos.id,
-                fecha:asientos.fecha,
-                antecedentes:asientos.antecedentes,
-                acto_profesional:asientos.acto_profesional,
-                otras_informaciones:asientos.otras_informaciones,
-                pacienteId:asientos.pacienteId,
-                especialistaId:asientos.especialistaId
+                id: asiento.id,
+                fecha:asiento.fecha,
+                antecedentes:asiento.antecedentes,
+                acto_profesional:asiento.acto_profesional,
+                otras_informaciones:asiento.otras_informaciones,
+                pacienteId:asiento.pacienteId,
+                especialistaId:asiento.especialistaId
             }
     
         });
@@ -163,7 +163,7 @@ export class Asientos extends Component {
                                             <td style={{ fontSize: 11 }}>{asiento.especialistaId}</td>
  
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarAsiento(asientos); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarAsiento(asiento); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )

@@ -40,13 +40,13 @@ modificarConsultorio = ()=> {
 
 
 
-seleccionarConsultorio = (consultorios)=> {
+seleccionarConsultorio = (consultorio)=> {
     this.setState({
         tipoModal:'actualizar',
         form:{
-            id: consultorios.id,
-            piso: consultorios.piso,
-            numero: consultorios.numero 
+            id: consultorio.id,
+            piso: consultorio.piso,
+            numero: consultorio.numero 
         }
 
     });
@@ -156,7 +156,7 @@ seleccionarConsultorio = (consultorios)=> {
                                             <td style={{ fontSize: 11 }}>{consultorio.piso}</td>
                                             <td style={{ fontSize: 11 }}>{consultorio.numero}</td>
                                             <td><div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorios); this.show()}}>EDITAR</button>
+                                                <button className="btn btn-primary ms float-end" style={{ fontSize: 8 }} onClick={()=>{this.seleccionarConsultorio(consultorio); this.show()}}>EDITAR</button>
                                                 <button className="btn btn-danger ms float-end" style={{ fontSize: 8 }}>BORRAR</button></div></td>
                                         </tr>
                                     )
